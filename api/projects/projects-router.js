@@ -13,7 +13,6 @@ router.get("/", async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-  res.json({ message: "Hello from projects" });
 });
 
 router.get("/:id", validateProjectId, (req, res) => {
@@ -24,8 +23,8 @@ router.get("/:id", validateProjectId, (req, res) => {
 router.post("/", validateProject, async (req, res) => {
   const { name, description } = req.body;
   const newProject = await Projects.insert({
-    name: name,
-    description: description,
+    name,
+    description,
   });
   res.status(201).json(newProject);
 });
@@ -34,8 +33,8 @@ router.put("/:id", validateProjectId, validateProject, async (req, res) => {
   const { id } = req.params;
   const { name, description } = req.body;
   const updatedProject = await Projects.update(id, {
-    name: name,
-    description: description,
+    name,
+    description,
   });
   res.json(updatedProject);
 });
