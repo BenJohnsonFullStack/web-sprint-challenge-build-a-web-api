@@ -17,9 +17,9 @@ async function validateProjectId(req, res, next) {
 }
 
 async function validateProject(req, res, next) {
-  const { name, description, completed } = req.body;
+  const { name, description } = req.body;
   try {
-    if (!name || !description || !completed) {
+    if (!name || !description) {
       res
         .status(400)
         .json({ message: "Please include a name and valid description" });

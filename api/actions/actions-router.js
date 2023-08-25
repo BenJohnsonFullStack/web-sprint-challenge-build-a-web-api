@@ -36,11 +36,12 @@ router.post("/", verifyId, validateAction, async (req, res) => {
 
 router.put("/:id", validateActionId, validateAction, async (req, res) => {
   const { id } = req.params;
-  const { project_id, description, notes } = req.body;
+  const { project_id, description, notes, completed } = req.body;
   const updatedAction = await Actions.update(id, {
     project_id,
     description,
     notes,
+    completed,
   });
   res.json(updatedAction);
 });
