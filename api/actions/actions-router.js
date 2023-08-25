@@ -34,6 +34,17 @@ router.post("/", verifyId, validateAction, async (req, res) => {
   res.status(201).json(newAction);
 });
 
+router.put("/:id", validateActionId, validateAction, async (req, res) => {
+  const { id } = req.params;
+  const { project_id, description, notes } = req.body;
+  const updatedAction = await Actions.update(id, {
+    project_id: project_id,
+    description: description,
+    notes: notes,
+  });
+  res.json(updatedAction);
+});
+
 // eslint-disable-next-line no-unused-vars
 router.use((err, req, res, next) => {
   res.status(err.status || 500).json({
