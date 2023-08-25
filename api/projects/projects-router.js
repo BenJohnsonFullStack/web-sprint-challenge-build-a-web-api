@@ -2,7 +2,7 @@
 const express = require("express");
 const Projects = require("./projects-model");
 
-const { validateProjectId } = require("./projects-middleware");
+const { validateProjectId, validateProject } = require("./projects-middleware");
 
 const router = express.Router();
 
@@ -19,6 +19,11 @@ router.get("/", async (req, res, next) => {
 router.get("/:id", validateProjectId, (req, res) => {
   const { project } = req;
   res.json(project);
+});
+
+router.post("/", validateProject, (req, res) => {
+  const { newProject } = req;
+  res.status(201).json(newProject);
 });
 
 // eslint-disable-next-line no-unused-vars

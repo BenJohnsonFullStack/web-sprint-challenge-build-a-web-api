@@ -16,6 +16,27 @@ async function validateProjectId(req, res, next) {
   }
 }
 
+async function validateProject(req, res, next) {
+  const { name, description } = req.body;
+  try {
+    if (!name || !description) {
+      res
+        .status(400)
+        .json({ message: "Please include a name and description" });
+    } else {
+      const newProject = await Projects.insert({
+        name: name,
+        description: description,
+      });
+      req.newProject = newProject;
+      next();
+    }
+  } catch (err) {
+    next(err);
+  }
+}
+
 module.exports = {
   validateProjectId,
+  validateProject,
 };
