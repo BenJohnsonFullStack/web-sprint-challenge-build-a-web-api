@@ -40,6 +40,12 @@ router.put("/:id", validateProjectId, validateProject, async (req, res) => {
   res.json(updatedProject);
 });
 
+router.delete("/:id", validateProjectId, async (req, res) => {
+  const { id } = req.params;
+  const projectsDeleted = await Projects.remove(id);
+  res.json(projectsDeleted);
+});
+
 // eslint-disable-next-line no-unused-vars
 router.use((err, req, res, next) => {
   res.status(err.status || 500).json({
