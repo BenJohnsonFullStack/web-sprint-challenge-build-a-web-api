@@ -2,6 +2,8 @@
 const express = require("express");
 const Actions = require("./actions-model");
 
+const { validateActionId } = require("./actions-middleware");
+
 const router = express.Router();
 
 router.get("/", async (req, res, next) => {
@@ -11,6 +13,11 @@ router.get("/", async (req, res, next) => {
   } catch (err) {
     next(err);
   }
+});
+
+router.get("/:id", validateActionId, (req, res) => {
+  const { action } = req;
+  res.json(action);
 });
 
 // eslint-disable-next-line no-unused-vars
