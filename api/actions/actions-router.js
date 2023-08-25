@@ -4,8 +4,21 @@ const Actions = require("./actions-model");
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  res.json({ message: "Hello from actions" });
+router.get("/", async (req, res, next) => {
+  try {
+    const actions = await Actions.get();
+    res.json(actions);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// eslint-disable-next-line no-unused-vars
+router.use((err, req, res, next) => {
+  res.status(err.status || 500).json({
+    message: err.message,
+    stack: err.stack,
+  });
 });
 
 module.exports = router;
