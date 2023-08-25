@@ -27,9 +27,9 @@ router.get("/:id", validateActionId, (req, res) => {
 router.post("/", verifyId, validateAction, async (req, res) => {
   const { project_id, description, notes } = req.body;
   const newAction = await Actions.insert({
-    project_id: project_id,
-    description: description,
-    notes: notes,
+    project_id,
+    description,
+    notes,
   });
   res.status(201).json(newAction);
 });
@@ -38,9 +38,9 @@ router.put("/:id", validateActionId, validateAction, async (req, res) => {
   const { id } = req.params;
   const { project_id, description, notes } = req.body;
   const updatedAction = await Actions.update(id, {
-    project_id: project_id,
-    description: description,
-    notes: notes,
+    project_id,
+    description,
+    notes,
   });
   res.json(updatedAction);
 });
