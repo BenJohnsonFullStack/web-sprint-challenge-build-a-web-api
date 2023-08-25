@@ -24,11 +24,6 @@ async function validateProject(req, res, next) {
         .status(400)
         .json({ message: "Please include a name and description" });
     } else {
-      const newProject = await Projects.insert({
-        name: name,
-        description: description,
-      });
-      req.newProject = newProject;
       next();
     }
   } catch (err) {
