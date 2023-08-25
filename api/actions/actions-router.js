@@ -45,6 +45,12 @@ router.put("/:id", validateActionId, validateAction, async (req, res) => {
   res.json(updatedAction);
 });
 
+router.delete("/:id", validateActionId, async (req, res) => {
+  const { id } = req.params;
+  const projectsDeleted = await Actions.remove(id);
+  res.json(projectsDeleted);
+});
+
 // eslint-disable-next-line no-unused-vars
 router.use((err, req, res, next) => {
   res.status(err.status || 500).json({
