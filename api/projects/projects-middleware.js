@@ -19,10 +19,15 @@ async function validateProjectId(req, res, next) {
 async function validateProject(req, res, next) {
   const { name, description } = req.body;
   try {
-    if (!name || !description) {
+    if (
+      typeof name !== "string" ||
+      !name ||
+      typeof description !== "string" ||
+      !description
+    ) {
       res
         .status(400)
-        .json({ message: "Please include a name and description" });
+        .json({ message: "Please include a name and valid description" });
     } else {
       next();
     }
